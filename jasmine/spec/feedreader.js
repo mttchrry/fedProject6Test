@@ -23,10 +23,10 @@ $(function() {
          */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
+            expect(allFeeds.length).toBeGreaterThan(0);
         });
 
-        /* TODO: Write a test that loops through each feed
+        /* A test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
@@ -35,16 +35,18 @@ $(function() {
             {
                 var feed = allFeeds[i];
                 expect(feed.url).toBeDefined();
-                expect(feed.url.length).not.toBe(0);
+                expect(feed.url.length).toBeGreaterThan(0);
+                expect(feed.url).toMatch(/^http(s?)\:\/\//);
             }
         });
-
+        /* Makes sure the each feed has a name and it is a string. */ 
         it('have names', function() {
             for(i=0; i<allFeeds.length; i++)
             {
                 var feed = allFeeds[i];
                 expect(feed.name).toBeDefined();
-                expect(feed.name.length).not.toBe(0);
+                expect(feed.name.length).toBeGreaterThan(0);
+                expect(typeof feed.name).toBe('string');
             }
         });
 
@@ -56,31 +58,29 @@ $(function() {
     describe('The menu', function() {
         var spyEvent;
 
-        // ensure hidden by default
+        /* ensure hidden by default */
         it('is hidden by default', function() {
             expect(document.getElementsByClassName('menu-hidden')).toBeDefined();
             expect(document.getElementsByClassName('menu-hidden').length).toBe(1);
-         });
+        });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-         it('is unhidden and rehidden when menu button clicked', function() {
+        it('is unhidden and rehidden when menu button clicked', function() {
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).not.toBe(true);
             
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(true);
-         });
+        });
      });
 
          
-    // A new test suite for "Initial Entries" */
+    /* A new test suite for "Initial Entries" */
     describe('Initial entries', function() {
-
-
         /* A test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
@@ -92,44 +92,31 @@ $(function() {
         });
 
         it('have at least one entry', function() {
-            expect($('.feed .entry').length>=1).toBe(true);
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection"*/
+    /* A new test suite named "New Feed Selection" that ensures that the feeds 
+    are switched appropriately when clicked*/
     describe('New feed selection', function() {
-
-        var i = 0;
-        var oldEntries;
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* A test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         beforeEach(function(done) {
-            if(i > 0)
-            {
-                oldEntries = $('.feed').html();
-            }
-            loadFeed(i,done);
-            i++;
-         });
+        var contentBefore, contentAfter;
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                contentBefore = $('.feed').html();
+                done();
+            });
+        });
 
-         it('feed 0 initializes', function(){
-            var feed = $('.feed').html();
-            expect(oldEntries).not.toBeDefined();
-            expect(feed.length >= 1).toBe(true);
-            expect(feed).not.toBe(oldEntries);
-         });
-         it('feed 1 is different from feed 0', function(){
-            var feed = $('.feed').html();
-            expect(oldEntries.length >= 1).toBe(true);
-            expect(feed).not.toBe(oldEntries);
-         });
-         it('feed 2 is different from feed 1', function(){  
-            var feed = $('.feed').html();
-            expect(feed).not.toBe(oldEntries);
-         });
-     });
-
-
+        it("content changes after load feed function runs", function(done) {
+            loadFeed(1, function() {
+                contentAfter = $('.feed').html();
+                expect(contentBefore).not.toBe(contentAfter);
+                done();
+            });
+        });
+    });
 }());

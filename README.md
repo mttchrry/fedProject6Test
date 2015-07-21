@@ -2,6 +2,8 @@
 
 This project is tested with Jasmine and can be viewed by opening up the index.html file included or online at ttp://mttchrry.github.io/fedProject6Test/
 
+Opening up the page will run the tests, and refreshing them will re-run them. They can be seen on the bottom of the page with their results.
+
 # Project Overview
 
 In this project you are given a web-based application that reads RSS feeds. The original developer of this application clearly saw the value in testing, they've already included [Jasmine](http://jasmine.github.io/) and even started writing their first test suite! Unfortunately, they decided to move on to start their own company and we're now left with an application with an incomplete test suite. That's where you come in.
