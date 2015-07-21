@@ -1,6 +1,6 @@
 # How to use
 
-This project is tested with Jasmine and can be viewed by opening up the index.html file included or online at ttp://mttchrry.github.io/fedProject6Test/
+This project is tested with Jasmine and can be viewed by opening up the index.html file included or online at http://mttchrry.github.io/fedProject6Test/
 
 Opening up the page will run the tests, and refreshing them will re-run them. They can be seen on the bottom of the page with their results.
 
