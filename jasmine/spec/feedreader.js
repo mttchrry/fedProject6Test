@@ -31,7 +31,7 @@ $(function() {
          * and that the URL is not empty.
          */
         it('have urls', function() {
-            for(i=0; i<allFeeds.length; i++)
+            for(var i = 0; i < allFeeds.length; i++)
             {
                 var feed = allFeeds[i];
                 expect(feed.url).toBeDefined();
@@ -41,8 +41,8 @@ $(function() {
         });
         /* Makes sure the each feed has a name and it is a string. */ 
         it('have names', function() {
-            for(i=0; i<allFeeds.length; i++)
-            {
+            for(var i = 0; i < allFeeds.length; i++)
+            { 
                 var feed = allFeeds[i];
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).toBeGreaterThan(0);
@@ -64,7 +64,7 @@ $(function() {
             expect(document.getElementsByClassName('menu-hidden').length).toBe(1);
         });
 
-         /* TODO: Write a test that ensures the menu changes
+         /* A test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
